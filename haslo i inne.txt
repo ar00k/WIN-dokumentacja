@@ -1,0 +1,167 @@
+--SETUP--
+arkadiusz - main
+user1 - node 1
+user2 - node 2
+12345
+
+sudo apt update && sudo apt upgrade -y
+
+sudo apt install ubuntu-desktop (dla komfortu pracy.. kompletnie zbędny dla funkcjonalnosci)
+
+sudo systemctl set-default graphical.target
+
+zamontowac wczesniej addon..
+
+sudo mount /dev/cdrom /mnt
+cd /mnt
+sudo ./VBoxLinuxAdditions.run
+
+potem w opcjach (2 kierunkowe przeciaganie i schowek)
+
+
+-----NIS---------
+
+
+sudo nisdomainname nisArek
+
+KLUCZOWE ZMIANY
+
+# /etc/default/nis
+YPPWDDIR=/etc
+YPCHANGEOK=chsh #tego i tego wyżej nawet nie ustawiałem chacik proponował
+NISSERVER=master  # <-- TO JEST KLUCZOWA LINIA!
+NISMASTER=nisArek  # (opcjonalnie, jeśli masz wielu serwerów)
+YPSERVARGS="" #tego tez nie ustawiałem, piszcie bez komentarzy 4 safety
+
+# /etc/ypserv.securenets
+# Zawsze zezwalaj na localhost (IPv4 i IPv6)
+255.0.0.0       127.0.0.0
+host            ::1
+
+# Dostęp tylko dla podsieci (192.168.10.0/24)
+255.255.255.0   192.168.10.0
+
+# Odrzuć wszystkie inne połączenia (domyślne zachowanie)
+
+# /etc/yp.conf
+
+domain nisArek server 192.168.10.10
+
+
+
+potem
+
+sudo systemctl enable ypserv yppasswdd ypxfrd 
+
+zeby sie odpalalo z systemem odrazu
+
+sudo reboot i patrzymy czy gra
+
+jak gra to bangla dalej
+
+# WAŻNE !!!
+
+sudo /usr/lib/yp/ypinit -m 
+
+jak wyświetla sie nazwa serwera tam wciskamy ctrl+d
+
+on se tam buduje i gra gitara potem rzekomo tak czat mówi męczyłem sie nad tym 2h xDDD!!!
+
+-- NIS CLIENT (Node 1 i 2) --
+lecimy na obydwu smigło raz
+sudo apt update && sudo apt install nis -y
+
+sudo nisdomainname nisArek && sudo echo "nisArek" > /etc/defaultdomain
+
+sudo nano /etc/yp.conf
+
+domain nisArek server 192.168.10.10
+
+
+
+# /etc/nsswitch.conf
+#
+# Example configuration of GNU Name Service Switch functionality.
+# If you have the `glibc-doc-reference' and `info' packages installed, try:
+# `info libc "Name Service Switch"' for information about this file.
+
+passwd:         files systemd nis sss
+group:          files systemd nis sss
+shadow:         files systemd nis sss
+gshadow:        files systemd
+
+hosts:          files mdns4_minimal [NOTFOUND=return] dns
+networks:       files
+
+protocols:      db files
+services:       db files sss
+ethers:         db files
+rpc:            db files
+
+netgroup:       nis [SUCCESS=return] sss
+automount:  sss
+
+--NFS(serwer)--
+
+sudo apt update
+sudo apt install nfs-kernel-server  # Na serwerze
+
+
+sudo systemctl enable --now nfs-server rpcbind
+
+sudo adduser --shell /bin/bash --home /home/nisuser1 nisuser1
+sudo adduser --shell /bin/bash --home /home/nisuser2 nisuser2
+
+sudo groupadd nisusers
+
+sudo usermod -aG nisusers nisuser1  
+sudo usermod -aG nisusers nisuser2 
+
+sudo mkdir -p /srv/public /srv/restricted
+sudo chmod 777 /srv/public          # Pełne uprawnienia dla wszystkich
+sudo chmod 775 /srv/restricted      # Ograniczone uprawnienia
+sudo chown nobody:nogroup /srv/public
+sudo chown root:nisusers /srv/restricted  # Grupa "nisusers" musi istnieć
+
+
+sudo nano /etc/exports
+
+# Pełen dostęp do public 
+ /srv/public 192.168.10.0/24(rw,sync,no_subtree_check,no_root_squash)
+# node 1 odczyt, node 2 zapis
+ /srv/restricted 192.168.10.20(ro,sync) 192.168.10.30(rw,sync)  
+
+sudo exportfs -arv 
+sudo systemctl restart nfs-server
+
+--NFS NODE--
+sudo apt install nfs-common         # Na klientach
+
+sudo nano /etc/fstab
+
+192.168.10.10:/srv/public  /mnt/public  nfs  defaults,_netdev  0  0
+
+sudo mkdir -p /mnt/public /mnt/restricted
+
+# Na node1 (tylko odczyt):
+sudo mount -t nfs 192.168.10.10:/srv/restricted /mnt/restricted -o ro
+
+# Na node2 (odczyt i zapis):
+sudo mount -t nfs 192.168.10.10:/srv/restricted /mnt/restricted
+
+sudo mount -a
+
+ypcat passwd # tutaj sprawdzamy czy sie nam pokazują konta z main (nisuser1 i nisuser2)
+
+
+
+----- TROUBLESHOOTING -----
+
+sudo systemctl status ypserv yppasswdd ypxfrd - status zbychów
+
+sudo /usr/lib/yp/ypinit -m tym sobie odpalamy NIS (jak juz dziala wszystko na main)
+
+jak mapy trollują i coś źle sie tworzą:
+sudo rm -rf /var/yp/nisArek/* gdzie nisArek to nazwa domeny
+
+cat /etc/defaultdomain  # w tym pliku ma byc nazwa domeny (NIS sobie ciagnie z niej po reboocie)

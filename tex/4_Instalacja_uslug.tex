@@ -1,0 +1,55 @@
+	\newpage
+	\lstdefinestyle{bashstyle}{
+		language=bash,
+		basicstyle=\ttfamily\footnotesize,
+		keywordstyle=\color{blue!90!black}\bfseries,
+		commentstyle=\color{gray}\itshape,
+		stringstyle=\color{green!70!black},
+		numbers=left,
+		numberstyle=\ttfamily\tiny\color{gray}\raisebox{0.5ex},
+		stepnumber=1,
+		numbersep=5pt,
+		breaklines=true,
+		frame=single,
+		backgroundcolor=\color{gray!5},
+		showspaces=false,
+		showstringspaces=false,
+		showtabs=false,
+		tabsize=4,
+		captionpos=b,
+		linewidth=\linewidth,
+		xleftmargin=20pt,
+		xrightmargin=5pt,
+		framexleftmargin=15pt,
+		framexrightmargin=5pt,
+		rulecolor=\color{blue!30},
+		literate=  % Corrected Polish character mappings
+		  {ą}{{\k{a}}}1 
+		  {ć}{{\'c}}1 
+		  {ę}{{\k{e}}}1 
+		  {ł}{{\l}}1 
+		  {ń}{{\'n}}1
+		  {ó}{{\'o}}1 
+		  {ś}{{\'s}}1 
+		  {ź}{{\'z}}1 
+		  {ż}{{\.{z}}}1
+		  {Ą}{{\k{A}}}1 
+		  {Ć}{{\'C}}1 
+		  {Ę}{{\k{E}}}1 
+		  {Ł}{{\L}}1
+		  {Ń}{{\'N}}1 
+		  {Ó}{{\'O}}1 
+		  {Ś}{{\'S}}1 
+		  {Ź}{{\'Z}}1 
+		  {Ż}{{\.{Z}}}1,
+		emph={sudo,apt-get,grep,awk,sed,chmod,chown,mv,cp,rm,mkdir,rmdir,cat,ps,kill,service,systemctl,apt,domain,ypinit,ypserv,ypbind,ypwhich,ypcat,ypmatch,ypdomainname},
+		emphstyle=\color{magenta!70!black},
+		lineskip=2pt,
+		aboveskip=10pt,
+		belowskip=10pt,
+		numberblanklines=false
+	}
+\lstset{style=bashstyle} % Ustawienia dla całego dokumentu
+\section{Procedury instalacyjne poszczególnych usług}		%4
+% Procedury instalacyjne poszczególnych usług.
+% (W podpunktach zamieścić polecenia dotyczące instalacji wdrażanych usług) 
