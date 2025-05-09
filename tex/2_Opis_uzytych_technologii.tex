@@ -1,2 +1,96 @@
 \newpage
-\section{Opis użytych technologii}		%2
+
+\section{Opis użytych technologii}
+\label{sec:technologie}
+\subsection{Windows Server 2022}
+\begin{itemize}
+\item \textbf{Opis:} System operacyjny serwerowy firmy Microsoft przeznaczony do zarządzania siecią, usługami katalogowymi oraz zasobami przedsiębiorstwa.
+\item \textbf{Zastosowanie:} Używany jako podstawowy system dla kontrolera domeny Active Directory oraz do hostowania usług zarządzania użytkownikami i zasobami.
+\item \textbf{Wersja:} 2022 Standard
+\item \textbf{Typ:} System operacyjny serwerowy (64-bitowy)
+\item \textbf{Wymagania sprzętowe:}
+\begin{itemize}
+\item Procesor: 1.4 GHz (64-bit), 2+ rdzenie
+\item Pamięć RAM: 512 MB (minimum), zalecane 4 GB+
+\item Dysk: 32 GB wolnego miejsca (dynamicznie alokowane)
+\end{itemize}
+\end{itemize}
+
+\subsection{Active Directory Domain Services (AD DS)}
+\begin{itemize}
+\item \textbf{Opis:} Usługa katalogowa Microsoftu umożliwiająca centralne zarządzanie użytkownikami, komputerami, grupami i politykami bezpieczeństwa w domenie.
+\item \textbf{Zastosowanie:} Utworzenie domeny, konfiguracja kontrolera domeny (PDC), dołączanie klientów oraz zarządzanie kontami użytkowników.
+\item \textbf{Wersja:} Zintegrowana z Windows Server 2022
+\item \textbf{Kluczowe funkcje:}
+\begin{itemize}
+\item Uwierzytelnianie Kerberos
+\item Replikacja danych między kontrolerami domeny
+\item Zarządzanie obiektami za pomocą konsoli Active Directory Users and Computers
+\end{itemize}
+\end{itemize}
+
+\subsection{Group Policy (GPO)}
+\begin{itemize}
+\item \textbf{Opis:} Mechanizm definiowania i wymuszania zasad konfiguracji dla użytkowników i komputerów w domenie.
+\item \textbf{Zastosowanie:}
+\begin{itemize}
+\item Blokada instalacji oprogramowania (np. przez Software Restriction Policies)
+\item Ograniczenia czasowe logowania (np. Logon Hours)
+\item Kontrola dostępu do aplikacji (AppLocker)
+\end{itemize}
+\item \textbf{Wersja:} Zależna od funkcjonalności Windows Server 2022
+\item \textbf{Typ:} Narzędzie zarządzania oparte na szablonach administracyjnych.
+\end{itemize}
+
+\subsection{Roaming User Profiles}
+\begin{itemize}
+\item \textbf{Opis:} Profile użytkowników przechowywane centralnie na serwerze, synchronizowane między wszystkimi komputerami w domenie.
+\item \textbf{Zastosowanie:} Utworzenie profilu przenośnego oraz katalogu macierzystego (home directory) na zasobie sieciowym.
+\item \textbf{Wymagania:}
+\begin{itemize}
+\item Udział sieciowy z uprawnieniami zapisu dla użytkowników
+\item Konfiguracja ścieżki profilu w właściwościach konta użytkownika w AD
+\end{itemize}
+\end{itemize}
+
+\subsection{NTFS i Udziały Sieciowe (SMB)}
+\begin{itemize}
+\item \textbf{Opis:} System plików NTFS oraz protokół SMB umożliwiający udostępnianie zasobów w sieci.
+\item \textbf{Zastosowanie:}
+\begin{itemize}
+\item Udostępnianie folderów z określonymi uprawnieniami (np. tylko dla wybranych grup w domenie)
+\item Kontrola dostępu poprzez kombinację uprawnień NTFS i udziałów sieciowych
+\end{itemize}
+\item \textbf{Wersja:} NTFS 3.1, SMB 3.1.1 (Windows Server 2022)
+\item \textbf{Bezpieczeństwo:} Szyfrowanie transmisji danych (SMB Encryption).
+\end{itemize}
+
+\subsection{Dyskowe Kwoty (Disk Quotas)}
+\begin{itemize}
+\item \textbf{Opis:} Funkcja systemu Windows Server ograniczająca przestrzeń dyskową przydzieloną użytkownikom.
+\item \textbf{Zastosowanie:}
+\begin{itemize}
+\item Ograniczenie profilu przechodniego do 50 MB
+\item Limit 100 MB dla innych folderów użytkowników
+\end{itemize}
+\item \textbf{Konfiguracja:} Narzędzie File Server Resource Manager (FSRM) lub edycja właściwości partycji NTFS.
+\end{itemize}
+
+\subsection{Windows 10/11 Enterprise}
+\begin{itemize}
+\item \textbf{Opis:} System operacyjny dla klientów domeny z obsługą zaawansowanych funkcji enterprise.
+\item \textbf{Zastosowanie:} Komputery dołączone do domeny Active Directory w celu testowania polityk i ograniczeń.
+\item \textbf{Wymagania:}
+\begin{itemize}
+\item Wersja Pro lub Enterprise
+\item Połączenie sieciowe z kontrolerem domeny
+\end{itemize}
+\end{itemize}
+
+\subsection{VirtualBox}
+\begin{itemize}
+\item \textbf{Opis:} Platforma wirtualizacyjna do emulacji środowisk sieciowych.
+\item \textbf{Zastosowanie:} Uruchomienie maszyn wirtualnych z Windows Server 2022 i klientami.
+\item \textbf{Wersja:} 7.0+
+\item \textbf{Konfiguracja sieci:} Tryb Internal Network lub Bridged Adapter dla symulacji domeny.
+\end{itemize}

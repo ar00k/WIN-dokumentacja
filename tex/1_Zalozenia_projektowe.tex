@@ -1,1 +1,105 @@
-\section{Założenia projektowe – wymagania}		%1
+\newpage
+
+\section{Założenia projektowe – wymagania}
+\begin{itemize}
+\item Utworzyć domenę \texttt{Active Directory} w oparciu o Windows Server 2022.
+\item Skonfigurować serwer jako główny kontroler domeny.
+\item Dołączyć komputery klienckie do utworzonej domeny.
+\item Utworzyć konta użytkowników z różnymi poziomami uprawnień:
+\begin{itemize}
+\item Blokada instalacji oprogramowania
+\item Ograniczenia czasowe dostępu do systemu
+\item Kontrola dostępu do wybranych aplikacji
+\end{itemize}
+\item Wdrożyć centralnie przechowywane profile użytkowników (profile roamingowe) oraz katalogi domowe.
+\item Udostępnić dedykowane foldery z różnymi poziomami dostępu dla poszczególnych użytkowników/grup domenowych.
+\item Wprowadzić limity przestrzeni dyskowej:
+\begin{itemize}
+\item Maksymalnie \textbf{50 MB} dla profilów roamingowych
+\item Maksymalnie \textbf{100 MB} dla pozostałych folderów użytkowników
+\end{itemize}
+
+\item \textbf{Tworzenie maszyn wirtualnych}
+\begin{itemize}
+\item \textit{Wymagane maszyny:}
+\begin{itemize}
+\item \textbf{1×} Serwer z systemem \texttt{Windows Server 2022 Standard}
+\item \textbf{2×} Komputery klienckie z systemem \texttt{Windows 10/11 Pro}
+\end{itemize}
+\item \textit{Wspólne ustawienia dla wszystkich VM:}
+\begin{itemize}
+\item Typ systemu: \texttt{Microsoft Windows} (64-bit)
+\item Tryb instalacji: \texttt{Full Desktop Experience}
+\item Wymagane role:
+
+\begin{itemize}
+ \item \texttt{Active Directory Domain Services} 
+ \item \texttt{DHCP Server}
+ \item \texttt{GPO} (Group Policy Object)
+ \item \texttt{File and Storage Services}
+ \item \texttt{File Server Resource Manager}
+\end{itemize}
+\end{itemize}
+\clearpage
+\item \textit{Minimalne wymagania sprzętowe:}
+\begin{itemize}
+\item Pamięć RAM:
+\begin{itemize}
+\item Serwer: \textbf{4096 MB}
+\item Klienty: \textbf{2048 MB}
+\end{itemize}
+\item Procesor:
+\begin{itemize}
+\item Serwer: \textbf{2} rdzenie
+\item Klienty: \textbf{2} rdzenie
+\end{itemize}
+\item Dysk twardy:
+\begin{itemize}
+\item Serwer: \textbf{50 GB} (dynamicznie alokowany)
+\item Klienty: \textbf{50 GB} (dynamicznie alokowany)
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+\item \textbf{Konfiguracja sieci}
+\begin{itemize}
+\item \textit{Wymagania:}
+\begin{itemize}
+\item Komunikacja wewnętrzna w ramach domeny
+\item Serwer musi posiadać statyczny adres IP
+\end{itemize}
+\item \textit{Konfiguracja kart sieciowych w VirtualBox:}
+\begin{itemize}
+\item Karta 2: Sieć wewnętrzna (\texttt{Internal Network}) np. \texttt{ad-network}
+\end{itemize}
+\item \textit{Ustawienia adresacji:}
+\begin{itemize}
+\item Serwer:
+\begin{itemize}
+\item Statyczny IP: \textbf{192.168.10.10/24}
+\item DNS: Wskazujący na siebie (127.0.0.1)
+\end{itemize}
+\item Klienci:
+\begin{itemize}
+\item IP: \texttt{DHCP} ze wskazaniem na serwer DNS
+\item Alternatywnie: Statyczne IP z puli \textbf{192.168.10.20-30}
+\end{itemize}
+\end{itemize}
+\end{itemize}
+
+
+
+\item \textbf{Zarządzanie użytkownikami i grupami}
+\begin{itemize}
+\item Wykorzystaj \texttt{Group Policy Management} (GPO) do:
+\begin{itemize}
+\item Blokady instalacji oprogramowania: \texttt{User Configuration → Policies →\\ Administrative Templates → Control Panel/Add or Remove Programs}
+\item Ograniczeń czasowych: \texttt{Computer Configuration → Policies → Windows Settings → Security Settings → Local Policies/User Rights Assignment}
+\item Kontroli aplikacji: \texttt{Software Restriction Policies} lub \texttt{AppLocker}
+\end{itemize}
+\item Do zarządzania limitami dyskowymi użyj \texttt{File Server Resource Manager (FSRM)}:
+\begin{itemize}
+\item Utwórz kwoty dla folderów profilów i udziałów
+\end{itemize}
+\end{itemize}
+\end{itemize}

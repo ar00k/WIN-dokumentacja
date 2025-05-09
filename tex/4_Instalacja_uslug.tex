@@ -1,4 +1,4 @@
-	\newpage
+\newpage
 	\lstdefinestyle{bashstyle}{
 		language=bash,
 		basicstyle=\ttfamily\footnotesize,
@@ -52,4 +52,123 @@
 \lstset{style=bashstyle} % Ustawienia dla całego dokumentu
 \section{Procedury instalacyjne poszczególnych usług}		%4
 % Procedury instalacyjne poszczególnych usług.
-% (W podpunktach zamieścić polecenia dotyczące instalacji wdrażanych usług) 
+% (W podpunktach zamieścić polecenia dotyczące instalacji wdrażanych usług)
+
+\subsection{Instalacja systemu operacyjnego Windows Server 2022}
+
+
+\fg[0.65\linewidth]{rys/Maszyny/01.png}{Konfiguracja maszyny wirtualnej w VirtualBox: wybór nazwy, lokalizacji, typu systemu (Windows Server 2022) oraz alokacji zasobów (RAM: 4096 MB, dysk: 50 GB).}{Maszyny-01}
+
+\fg[0.65\linewidth]{rys/Maszyny/02.png}{Wybranie rodzaju karty sieciowej}{Maszyny-02}
+\clearpage
+
+\fg[0.65\linewidth]{rys/Maszyny/03.png}{Ekran wyboru wersji systemu Windows Server 2022 (Standard Edition) podczas instalacji.}{Maszyny-03}
+\fg[0.65\linewidth]{rys/Maszyny/04.png}{Ustawianie hasła}{Maszyny-04}
+\clearpage
+
+\fg[0.65\linewidth]{rys/Maszyny/05.png}{Podsumowanie konfiguracji maszyny wirtualnej przed uruchomieniem instalacji.}{Maszyny-05}
+\fg[0.65\linewidth]{rys/Maszyny/06.png}{Wybór edycji systemu Windows 10 pro z listy dostępnych opcji.}{Maszyny-06}
+\clearpage
+
+\subsection{Instalacja usługi Active Directory}
+
+\fg[0.65\linewidth]{rys/AD/01.png}{Dodawanie roli Active Directory Domain Services w Server Manager – wybór wymaganych komponentów.}{AD-01}
+\fg[0.65\linewidth]{rys/AD/01.png}{Potwierdzenie instalacji narzędzi administracyjnych AD DS.}{AD-01}
+\clearpage
+
+\fg[0.65\linewidth]{rys/AD/02.png}{Ekran potwierdzenia wybranych ról do instalacji (AD DS).}{AD-02}
+\fg[0.65\linewidth]{rys/AD/03.png}{Komunikat o konieczności dokończenia konfiguracji AD DS po restarcie serwera.}{AD-03}
+\clearpage
+
+\fg[0.65\linewidth]{rys/AD/04.png}{Konfiguracja nowego lasu Active Directory – wprowadzenie nazwy domeny ar.ad.}{AD-04}
+\fg[0.65\linewidth]{rys/AD/05.png}{Ustawienie poziomu funkcjonalności lasu i domeny (Windows Server 2016)}{AD-05}
+\clearpage
+
+\fg[0.65\linewidth]{rys/AD/06.png}{Komunikat o pomyślnej promocji serwera na kontroler domeny.}{AD-06}
+\fg[0.65\linewidth]{rys/AD/07.png}{Ekran logowania do nowo utworzonej domeny AR po restarcie.}{AD-07}
+\clearpage
+
+\fg[0.65\linewidth]{rys/AD/08.png}{Zmiana członkostwa komputera w domenie (System → Advanced system settings).}{AD-08}
+\fg[0.65\linewidth]{rys/AD/09.png}{Widok logowania użytkownika domenowego z uwzględnieniem nazwy domeny.}{AD-09}
+\clearpage
+
+\subsection{Instalacja usługi DHCP}
+
+\fg[0.65\linewidth]{rys/DHCP/01.png}{Dodawanie roli DHCP Server z wymaganymi narzędziami administracyjnymi.}{DHCP-01}
+\fg[0.65\linewidth]{rys/DHCP/02.png}{Potwierdzenie instalacji DHCP Server wraz z komponentami.}{DHCP-02}
+\clearpage
+
+\fg[0.65\linewidth]{rys/DHCP/03.png}{Kontynuacja konfiguracji DHCP.}{DHCP-03}
+\fg[0.65\linewidth]{rys/DHCP/04.png}{Wybór użytkownika który zarządza DHCP}{DHCP-04}
+\clearpage
+
+\fg[0.65\linewidth]{rys/DHCP/05.png}{Przejscie do DHCP Manager.}{DHCP-05}
+\fg[0.65\linewidth]{rys/DHCP/06.png}{Dodawanie nowego zakresu.}{DHCP-06}
+\clearpage
+
+\fg[0.65\linewidth]{rys/DHCP/07.png}{Nazwa nowego zarkesu.}{DHCP-07}
+\fg[0.65\linewidth]{rys/DHCP/08.png}{Przypisanie początku i końca zakresu.}{DHCP-08}
+\clearpage
+
+\fg[0.65\linewidth]{rys/DHCP/09.png}{Ustawienie bramy.}{DHCP-09}
+\fg[0.65\linewidth]{rys/DHCP/10.png}{Ustawienie DNS.}{DHCP-10}
+\clearpage
+
+\fg[0.65\linewidth]{rys/DHCP/11.png}{Finalizacja DHCP.}{DHCP-11}
+
+\subsection{Użytkownicy i grupy AD}
+
+\fg[0.65\linewidth]{rys/uzytkownicyAD/01.png}{Widok konsoli Active Directory Users and Computers z listą obiektów domeny.}{uzytkownicyAD-01}
+\fg[0.65\linewidth]{rys/uzytkownicyAD/02.png}{Menu kontekstowe do tworzenia nowych użytkowników i grup w domenie.}{uzytkownicyAD-02}
+\clearpage
+
+\fg[0.65\linewidth]{rys/uzytkownicyAD/03.png}{Dodanie 2 komputerów.}{uzytkownicyAD-03}
+\fg[0.65\linewidth]{rys/uzytkownicyAD/04.png}{Dodawanie nowej grupy}{uzytkownicyAD-04}
+\clearpage
+
+\fg[0.65\linewidth]{rys/uzytkownicyAD/05.png}{Dodawanie grupy pracownicy.}{uzytkownicyAD-05}
+\fg[0.65\linewidth]{rys/uzytkownicyAD/06.png}{Dodawanie grupy IT.}{uzytkownicyAD-06}
+\clearpage
+
+\fg[0.65\linewidth]{rys/uzytkownicyAD/07.png}{Dodawanie użytkownika.}{uzytkownicyAD-07}
+\fg[0.65\linewidth]{rys/uzytkownicyAD/08.png}{Dodawanie użytkownika Arkadiusz Ryczek.}{uzytkownicyAD-08}
+\clearpage
+
+\subsection{Instalacja usługi GPO}
+
+\fg[0.65\linewidth]{rys/GPO/01.png}{Tworzenie nowego policy.}{GPO-01}
+\fg[0.65\linewidth]{rys/GPO/02.png}{Edycja policy.}{GPO-02}
+\clearpage
+
+\fg[0.65\linewidth]{rys/GPO/03.png}{Wyłączanie opcji instalowania oprogramowania}{GPO-03}
+\fg[0.65\linewidth]{rys/GPO/04.png}{Wyłączanie opcji instalowania oprogramowania cz2}{GPO-04}
+\clearpage
+
+
+
+\subsection{Profil centralny i katalog macierzysty}
+
+\fg[0.65\linewidth]{rys/katalogi/01.png}{Udostępnianie folderu Domowy z uprawnieniami dla grup Pracownicy i IT.}{katalogi-01}
+\fg[0.65\linewidth]{rys/katalogi/02.png}{Udostępnianie folderu Domowy z uprawnieniami dla grup Pracownicy i IT cz2.}{katalogi-02}
+\clearpage
+
+
+\fg[0.65\linewidth]{rys/katalogi/03.png}{Udostepnianie katalogi Profile}{katalogi-03}
+\fg[0.65\linewidth]{rys/katalogi/04.png}{Dodanie ścieżek dla użytkowników}{katalogi-04}
+\clearpage
+
+
+\subsection{Konfiguracja kwot dyskowych}
+
+\fg[0.65\linewidth]{rys/Quota/01.png}{Instalacja usługi File Server Resource Manager}{Quota-01}
+\fg[0.65\linewidth]{rys/Quota/02.png}{Tworzenie nowego szablonu kwoty.}{Quota-02}
+\clearpage
+
+\fg[0.55\linewidth]{rys/Quota/03.png}{Ustawianie limitów.}{Quota-03}
+\fg[0.65\linewidth]{rys/Quota/04.png}{Tworzenie nowej kwoty.}{Quota-04}
+
+\fg[0.55\linewidth]{rys/Quota/05.png}{Ustawienie kwoty dla \texttt{C:\textbackslash Domowy}}{Quota-05}
+\fg[0.55\linewidth]{rys/Quota/06.png}{Ustawienie kwoty dla \texttt{C:\textbackslash Profile}}{Quota-06}
+\clearpage
+
+\clearpage
